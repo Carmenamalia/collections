@@ -3,8 +3,8 @@ package exercitii.company_ex8;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main  {
+    public static void main(String[] args)  {
 
         Employee employee1 = new Employee("Andrei", 52, "Romania");
         Employee employee2 = new Employee("Laura", 28, "Romania");
@@ -26,12 +26,16 @@ public class Main {
         Company company = new Company(employees);
 
         System.out.println("angajati cu varsta peste 50 de ani:");
-        System.out.println(company.getOverFiftyEmployees(employees));
+        System.out.println(company.filterByAgeGreaterThan(50));
         System.out.println("angajati din Romania:");
-        System.out.println(company.getRomanianEmployees(employees));
-        System.out.println("tara angajatilor:");
-        company.sortEmployeesByCountry(employees);
-        System.out.println("numele angajatilor:");
-        company.sortEmployeesByName(employees);
+        System.out.println(company.filterByCountry("Romania"));
+        System.out.println("sorteaza dupa tara angajatilor:");
+        company.sortByCountry();
+        System.out.println("sorteaza dupa numele angajatilor:");
+        company.sortByName();
+        System.out.println(" nr de angajati din fiecare tara:");
+        System.out.println(company.groupNumberOfEmployeesByCountry());
+        System.out.println("lista de angajati din fiecare tara:");
+        System.out.println(company.groupEmployeesByCountry());
     }
 }

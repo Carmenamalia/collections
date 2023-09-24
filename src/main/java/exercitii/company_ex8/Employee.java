@@ -1,6 +1,6 @@
 package exercitii.company_ex8;
 
-public class Employee {
+public class Employee implements Comparable<Employee> {
 
     private String name;
     private int age;
@@ -43,5 +43,10 @@ public class Employee {
                 ", age=" + age +
                 ", country='" + country + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Employee o) {
+        return name.compareTo(o.getName());
     }
 }
