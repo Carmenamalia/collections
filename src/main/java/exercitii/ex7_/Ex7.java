@@ -19,7 +19,7 @@ public class Ex7 {
         Map<String,Integer> wordsByFrecvency = new HashMap<>();
         //parcurg lista si, pt fiecare elem:
           //daca cheia este deja in lista
-             //cresc valoarea dela acea cheie cu e
+             //cresc valoarea dela acea cheie cu 1
           //altfel,daca cheia nu este ,adaug cheia cu valoarea 1
         for (String word:words){
             if (wordsByFrecvency.containsKey(word)){
