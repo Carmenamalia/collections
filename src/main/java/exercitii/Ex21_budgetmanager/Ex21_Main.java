@@ -40,9 +40,9 @@ public class Ex21_Main {
         System.out.println(user1.getExpensesByCategory());
         System.out.println(user2.getExpensesByCategory());
 //Vizualizarea cheltuielilor dintr-o anumita categorie
-        System.out.println(user1.getExpensesByOneCategory(Category.OTHERS));
+        System.out.println("cheltuieli dintr- anumita categorie: " + user1.getExpensesByOneCategory(Category.OTHERS));
 //Vizualizarea tuturor cheltuielilor dintr-un interval de pret
-        System.out.println(user1.getExpensesByGivenAmount(300.0,2000.0));
+        System.out.println("cheltuieli dintr-un interval de pret: " + user1.getExpensesByGivenAmount(300.0, 2000.0));
         System.out.println("*****************************");
 //Sortarea tuturor cheltuielilor dupa pret
         System.out.println(user1.sortExpensesByPrice());
@@ -52,20 +52,22 @@ public class Ex21_Main {
         System.out.println(user1.sortExpensesByPriceByCategory(Category.OTHERS));
         System.out.println("*************************");
 
-        List<User> users = List.of(user1,user2);
+        List<User> users = List.of(user1, user2);
 //Salvarea tuturor cheltuielilor intr-un fisier
         user1.saveAllPurchases(users);
 //Setarea unui buget
         user1.setABudget(10000.0);
         user2.setABudget(15000.0);
 
-        System.out.println(user1.toString());
-        System.out.println(user1.toString());
+        System.out.println(user1);
+        System.out.println(user1);
 //Vizualizarea bugetului disponibil
         user1.printBudget();
-  //Adaugarea unei cheltuieli
+        //Adaugarea unei cheltuieli
         user1.addPurchase(purchase7);
- //Stergerea unei cheltuieli
+        System.out.println(user1);
+        //Stergerea unei cheltuieli
         user1.removePurchase(purchase6);
+        System.out.println(user1);
     }
 }

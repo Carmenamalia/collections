@@ -1,9 +1,8 @@
 package exercitii.Ex21_budgetmanager;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class User {
     private String username;
@@ -57,7 +56,9 @@ public class User {
 public Double getExpensesByOneCategory(Category category){
         Double expenses = 0.0;
         for (Purchase purchase:purchaseList){
-            expenses += purchase.getPrice();
+            if (purchase.getCategory().equals(category)) {
+                expenses += purchase.getPrice();
+            }
         }
         return expenses;
 }
@@ -72,47 +73,40 @@ public Map<Category,Double> getExpensesByCategory(){
     }
     return expensesByCategory;
 }
+public Map<Category,Double> getTotalPriceForEveryCategory(){
+    Map<Category, Double> priceByCategory = new HashMap<>();
+    for (Purchase purchase : purchaseList) {
+        Category category = purchase.getCategory();
+        Double price = purchase.getPrice();
+        if (priceByCategory.containsKey(category)) {
+            priceByCategory.put(category, price);
+        } else {
+            priceByCategory.put(category, purchase.getPrice() + price);
+        }
+    }
+    return priceByCategory;
+}
 
-    //Vizualizarea categoriei in care a cheltuit cel mai mult/mai putin
+    //Vizualizarea categoriei in care a cheltuit cel mai mult
     public Category getCategoryByMaxPurchase() {
-        Map<Category, Double> priceByCategory = new HashMap<>();
         Double maxTotalPurchase = 0.0;
         Category categoryByMaxPurchase = null;
-        for (int i = 0; i < purchaseList.size(); i++) {
-            Category category = purchaseList.get(i).getCategory();
-            Double price = purchaseList.get(i).getPrice();
-            if (priceByCategory.containsKey(category)) {
-                priceByCategory.put(category, price);
-            } else {
-                priceByCategory.put(category, purchaseList.get(i).getPrice() + price);
-            }
-        }
         //parcurg mapa cu keyset si care are valoarea mai mare iau cheia
-        for (Category category1 : priceByCategory.keySet()) {
-            if (priceByCategory.get(category1) > maxTotalPurchase) {
-                maxTotalPurchase = priceByCategory.get(category1);
+        for (Category category1 : getTotalPriceForEveryCategory().keySet()) {
+            if (getTotalPriceForEveryCategory().get(category1) > maxTotalPurchase) {
+                maxTotalPurchase = getTotalPriceForEveryCategory().get(category1);
                 categoryByMaxPurchase = category1;
             }
         }
         return categoryByMaxPurchase;
     }
-
+    //Vizualizarea categoriei in care a cheltuit cel mai  putin
     public Category getCategoryByMinPurchase() {
-        Map<Category, Double> priceByCategory = new HashMap<>();
         Double minTotalPurchase = Double.MAX_VALUE;
         Category categoryByMinPurchase = null;
-        for (int i = 0; i < purchaseList.size(); i++) {
-            Category category = purchaseList.get(i).getCategory();
-            Double price = purchaseList.get(i).getPrice();
-            if (priceByCategory.containsKey(category)) {
-                priceByCategory.put(category, price);
-            } else {
-                priceByCategory.put(category, purchaseList.get(i).getPrice() + price);
-            }
-        }
-        for (Category category1 : priceByCategory.keySet()) {
-            if (priceByCategory.get(category1) < minTotalPurchase) {
-                minTotalPurchase = priceByCategory.get(category1);
+        for (Category category1 : getTotalPriceForEveryCategory().keySet()) {
+            if (getTotalPriceForEveryCategory().get(category1) < minTotalPurchase) {
+                minTotalPurchase = getTotalPriceForEveryCategory().get(category1);
                 categoryByMinPurchase = category1;
             }
         }
@@ -162,7 +156,7 @@ public void setABudget(Double budget){
 }
 //Vizualizarea bugetului disponibil
     public void printBudget(){
-        System.out.println(maxBudget);
+        System.out.println("bugetul este: " + maxBudget);
     }
 
 //Adaugarea unei cheltuieli
@@ -172,10 +166,11 @@ public void setABudget(Double budget){
 
 //Stergerea unei cheltuieli
     public void removePurchase(Purchase purchase){
-        for (Purchase purchase1:purchaseList){
-            if (purchase1.equals(purchase)){
-                purchaseList.remove(purchase1);
-            }
-        }
+//        for (Purchase purchase1:purchaseList){
+//            if (purchase1.equals(purchase)){
+//                purchaseList.remove(purchase1);
+//            }
+//        }
+        purchaseList.removeIf(purchase1 -> purchase1.equals(purchase));
     }
 }
