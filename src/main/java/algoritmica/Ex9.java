@@ -28,5 +28,14 @@ public class Ex9 {
          arr2 = arr1.stream().skip(n).collect(Collectors.toList());//sterg primele n elemente din array
          arr2.addAll(arr1.subList(0,n));//adaug la sfarsitul noului array primele n elemente din vechiul array
         System.out.println(arr2);
+//alta modalitate
+        Integer[] array = {1, 2, 3, 4, 5};
+        int k = scan.nextInt(); // Numărul de poziții pentru rotație la dreapta
+
+        List<Integer> rotatedList = Arrays.stream(array)
+                .map(i -> array[(i - k + array.length) % array.length])
+                .collect(Collectors.toList());
+
+        System.out.println(rotatedList);
     }
 }
